@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	{% load static %}
+	<head>
+		<meta charset="UTF-8">
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+		
+		
+
+	</head>
+
+
+	<body>
+		
+
+		<div id="site-content">
+			<header class="site-header">
+				<div class="container">
+					<a href="index.html" id="branding">
+						<img src="images/logo.png" alt="" class="logo">
+						<div class="logo-copy">
+							<h1 class="site-title">Movie World</h1>
+							<h3>Welcome Admin</h3>
+					</a> <!-- #branding -->
+
+					<div class="main-navigation">
+						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+						<ul class="menu">
+							<li class="menu-item current-menu-item"><a href="{% url 'hme' %}"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+							<li class="menu-item"><a href="{% url 'admnhme' %}">Admin Home</a></li>
+							<!-- <li class="menu-item"><a href="{% url 'lstmve' %}">Edit Movie</a></li> -->
+							<li class="menu-item"><a href="{% url 'almve' %}">Movies list</a></li>
+							
+							<li class="menu-item"><a href="{% url 'lstusr' %}">All User</a></li>
+					
+							<li class="menu-item"><a href="{% url 'admve' %}">Add Movie</a></li>
+							<li class="menu-item"><a href="{% url 'lgut' %}">Logout</a></li>
+						</ul> <!-- .menu -->
+
+					</div> <!-- .main-navigation -->
+
+					<div class="mobile-navigation"></div>
+				</div>
+			</header>
+			<main class="main-content">
+				<div class="container">
+					<div class="page">
+						<div class="row">
+							<div class="col-md-9">
+								<div class="table-reposive" id="tb1" >
+				<table  width="200" class="table table-bordered table-hover table-striped">
+					
+					<h2 style="color: blue;font-size:50px;">Movies List</h2>
+						
+					<tr class="active" style="color: blue;" >
+					<!-- 	<th>id</th> -->
+						<th>movies Name</th>
+						<th>Edit</th>
+					</tr>
+					<tr>
+						{% for x in form %}
+						<!-- <th>{{x.id}}</th> -->
+						<th><h3 style="color: blue;">{{x.movie_name}}</h3></th>
+					
+						<th><a href="{% url 'edtmve' x.id %}">Edit Movie</a></th>
+						
+					</tr>
+						{% endfor %}
+
+					</div>
+
+
+
+
+
+							</div>
+							
+
+			</main>
+			<footer class="site-footer">
+			<div class="container">
+					<div class="row" style="float: right;">
+						<div class="col-md-3" >
+							<div class="widget">
+								<h3 class="widget-title">About Us</h3>
+								<p>Movie world is a world wide movie ticket booking site.
+								You can book any movie ticket from this.</p>
+							</div>
+						</div>
+					
+						
+						 	<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title">Join Us On</h3>
+								<ul class="no-bullet">
+									<li><a href="#">Facebook</a></li>
+									<li><a href="#">Twitter</a></li>
+									<li><a href="#">Google+</a></li>
+									<li><a href="#">Pinterest</a></li>
+								</ul>
+							</div>
+						</div> 
+
+			</footer>
+
+			
+		</div>
+		
+	</body>
+
+</html>

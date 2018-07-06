@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+	<head>
+			
+		<title>Welcome Home</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<!-- <script src="{% static 'js/plugins.js' %} "></script> -->
+		<!-- <script src="{% static  'js/app.js' %}"></script> -->
+		
+	</head>
+
+
+	<body>
+		
+
+		<div id="site-content">
+			<header class="site-header">
+				<div class="container">
+					<a href="index.html" id="branding">
+						<img src="{% static 'logo.png' %}" alt="" class="logo">
+						<div class="logo-copy">
+							<h1 class="site-title" style="font-size: 35px;">MOVIE WORLD</h1>
+							<!-- <small class="site-description">Tagline goes here</small> -->
+						</div>
+					</a> <!-- #branding -->
+
+					<div class="main-navigation">
+						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i><span class="glyphicon glyphicon-tasks"></span></button>
+						<ul class="menu">
+							<li class="menu-item current-menu-item"><a href="{% url 'hme' %}"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+							<li class="menu-item"><a href="about.html">About</a></li>
+							<li class="menu-item"><a href="{% url 'usrp' %}">Profile</a></li>
+							<li class="menu-item"><a href="{% url 'bked' %}">Booked shows</a></li>
+							<li class="menu-item"><a href="{% url 'testsamp' %}">Movies</a></li>
+							
+							<li class="menu-item"><a href="{% url 'ctct' %}"><span class="glyphicon glyphicon-phone-alt"></span> Contact</a></li>
+							<li class="menu-item"><a href="{% url 'lgut' %}">Logout</a></li>
+						</ul> 
+					
+					</div> 
+				</div>
+
+				</div>
+			</header>
+			<main class="main-content">
+				<div class="container">
+					{% for y in form %}
+					<div class="col-md-3">
+						
+						<img src="{{y.pic.url}}" alt="#" style="width: 250px; height: 250px;">
+						<h2 style="color:red;font-size:20px;">{{y.movie_name}}</h2>
+						<h3>{{y.movie_language}}</h3>
+						
+						<button type="button" class="btn btn-success " data-toggle="modal" data-target="#{{y.id}}" style="width:250px;"   >Book Now</button>
+						<br><br><br>
+
+						<div class="modal fade" id="{{y.id}}" role="dialog">
+				    	<div class="modal-dialog">
+						<div class="modal-content">
+				        <div class="modal-header">
+				        	
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Processing</h4>
+				        </div>
+				        <div class="modal-body">
+				        	<form>
+								<label for='i1'>Total Tickets:</label>
+								<input id='id{{y.id}}' class='counter' type='text'><br>
+								<b> Ticket price:</b>&ensp;
+								<!-- <input type="text" value="100" disabled="disabled" id="id2{{y.id}}" > -->
+
+								 <input list="price" id="id2{{y.id}}" >
+									  <datalist id="price">
+									    <option value="100 ">
+									    <option value="150">
+									    <option value="200">
+									   						    
+									  </datalist>&ensp;
+								<h4>100 (Silver)</h4>
+								<h4>150 (Gold)</h4>
+								<h4>200 (Platinum)</h4>
+									 
+								<input id='{{y.id}}' type='hidden' value="{{y.id}}">
+									
+												
+							</form>
+							</div>
+				        	<div class="modal-footer">
+				          	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				          	<button  class='btn btn-success add' data-dismiss="modal"
+				          	 value='{{y.id}}'>Add</button>
+							</div>
+				      </div>
+				      
+				    </div>
+					</div>
+
+
+
+						</div>
+					{% endfor %}
+
+				
+				</div>
+			
+
+
+
+
+			</main>
+			<footer class="site-footer">
+			<div class="container">
+					<div class="row" style="float: right;">
+						<div class="col-md-3" >
+							<div class="widget">
+								<h3 class="widget-title">About Us</h3>
+								<p>Movie world is a world wide movie ticket booking site.
+								You can book any movie ticket from this.</p>
+							</div>
+						</div>
+					
+						
+						 	<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title">Join Us On</h3>
+								<ul class="no-bullet">
+									<li><a href="#">Facebook</a></li>
+									<li><a href="#">Twitter</a></li>
+									<li><a href="#">Google+</a></li>
+									<li><a href="#">Pinterest</a></li>
+								</ul>
+							</div>
+						</div> 
+
+			</footer>
+		</div>
+		
+
+
+	</body>
+<script type="text/javascript">
+	$(document).ready(function() 
+          {
+
+		$('.add').click(function() 
+
+		{	
+			$(alert('Successfully added'));
+			var mve_id = $(this).val();
+			console.log(mve_id);
+			
+			var c = $('#id'+ mve_id).val();
+			var d = $('#id2'+mve_id).val();
+			var sum= c*d;
+			console.log(c)
+			console.log(d)
+			console.log(sum)
+			
+			var ajaxRequest = $.ajax({
+				'url' : '/book/',
+				'type': 'POST',
+				'data':{csrfmiddlewaretoken:'{{csrf_token}}',movie_id : mve_id,count : c,price:sum},
+				'dataType':'json',
+				'async': false,
+			});
+
+			ajaxRequest.done(function(response) {
+				$('.add').modal('hide');
+			});
+		});
+
+		
+	});
+</script>
+</html>

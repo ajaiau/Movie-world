@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+	{% load static %}
+	<head>
+		
+		<title>Movie</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">	
+		<script src="{% static 'js/plugins.js' %} "></script>
+		<script src="{% static  'js/app.js' %}"></script>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+
+	</head>
+
+
+	<body>
+		
+
+		<div id="site-content">
+			<header class="site-header">
+				<div class="container">
+					<a href="index.html" id="branding">
+						<img src="images/logo.png" alt="" class="logo">
+						<div class="logo-copy">
+							<h1 class="site-title">Movie World</h1>
+							<small class="site-description"></small>
+						</div>
+					</a> <!-- #branding -->
+
+					<div class="main-navigation">
+						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+						<ul class="menu">
+							<li class="menu-item current-menu-item"><a href="{% url 'hme' %}"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+
+							<li class="menu-item"><a href="about.html">About</a></li>
+							<!-- <li class="menu-item"><a href="review.html">Movie reviews</a></li> -->
+							<!-- <li class="menu-item"><a href="joinus.html">Join us</a></li> -->
+							<li class="menu-item"><a href="contact.html">Contact</a></li>
+							<li class="menu-item"><a href="{% url 'lgn' %}">Login</a></li>
+							<li class="menu-item"><a href="{% url 'sgn' %}">Signup</a></li>
+						</ul> <!-- .menu -->
+
+					</div> <!-- .main-navigation -->
+
+					<div class="mobile-navigation"></div>
+				</div>
+			</header>
+			
+			
+
+
+			<main class="main-content">
+				<div class="container">
+					<div class="page">
+						<div class="row">
+							<div class="col-md-9">
+						
+							</div>
+							<div class="col-md-8" >
+								<div class="row">
+									<div class="col-sm-6 col-md-12">
+										<div class="latest-movie">
+											
+											<form action="." method="POST" style="margin-left: 400px;">
+
+									<h2>Login Here</h2>
+									    {% csrf_token %}
+						    			{{ form.as_p }}
+
+    	
+    	<div class="g-recaptcha" data-sitekey="6Lf7O2AUAAAAAKqSweQHUblgSVxKtKIg1AX5LzFV"></div>
+
+    			<button type="submit">Login</button>
+    			<a href="{% url 'sgn' %}"><button class="btn btn-success">Signup</button>	</a>
+    			  <p><strong>-- OR --</strong></p>
+  				<a href="{% url 'social:begin' 'github' %}" style="color: blue;">Login with GitHub</a><br>	
+  				 <p><strong>-- OR --</strong></p>
+  				 <a href="{% url 'social:begin' 'facebook' %}" style="color: blue;">Login with Facebook</a> 
+			
+
+				</div>
+			</div>
+
+
+
+
+
+						
+			</main>
+			<footer class="site-footer">
+			<div class="container">
+					<div class="row" style="float: right;">
+						<div class="col-md-3" >
+							<div class="widget">
+								<h3 class="widget-title">About Us</h3>
+								<p>Movie world is a world wide movie ticket booking site.
+								You can book any movie ticket from this.</p>
+							</div>
+						</div>
+					
+						
+						 	<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title">Join Us On</h3>
+								<ul class="no-bullet">
+									<li><a href="#">Facebook</a></li>
+									<li><a href="#">Twitter</a></li>
+									<li><a href="#">Google+</a></li>
+									<li><a href="#">Pinterest</a></li>
+								</ul>
+							</div>
+						</div> 
+
+			</footer>
+		</div>
+		
+	</body>
+
+</html>
